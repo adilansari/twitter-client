@@ -4,98 +4,55 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Table(name = "user")
 public class User extends Model{
     @Column(name = "name")
-    private String name;
+    public String name;
 
     @Column(name = "profile_img_url")
-    private String profileImgUrl;
+    public String profileImgUrl;
 
-    @Column(name = "id", unique = true)
-    private long id;
+    @Column(name = "id", unique = true, index = true)
+    public long id;
 
     @Column(name = "location")
-    private String location;
+    public String location;
 
     @Column(name = "followers_count")
-    private int followersCount;
+    public int followersCount;
 
-    @Column(name = "screen_name")
-    private String screenName;
+    @Column(name = "screen_name", index = true)
+    public String screenName;
 
     @Column(name = "friends_count")
-    private int friendsCount;
+    public int friendsCount;
 
     @Column(name = "statuses_count")
-    private int statusesCount;
+    public int statusesCount;
 
     public User(){
         super();
     }
 
-    public String getName() {
-        return name;
+    public static User fromJson(JSONObject jsonObject) throws JSONException {
+        if (jsonObject == null)
+            return null;
+
+        User user = new User();
+
+        user.screenName = jsonObject.getString("screen_name");
+        user.name = jsonObject.getString("name");
+        user.id = jsonObject.getLong("id");
+        user.profileImgUrl = jsonObject.getString("profile_img_url");
+        user.location = jsonObject.getString("location");
+        user.followersCount = jsonObject.getInt("followers_count");
+        user.friendsCount = jsonObject.getInt("friends_count");
+        user.statusesCount = jsonObject.getInt("statuses_count");
+
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProfileImgUrl() {
-        return profileImgUrl;
-    }
-
-    public void setProfileImgUrl(String profileImgUrl) {
-        this.profileImgUrl = profileImgUrl;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getFollowersCount() {
-        return followersCount;
-    }
-
-    public void setFollowersCount(int followersCount) {
-        this.followersCount = followersCount;
-    }
-
-    public String getScreenName() {
-        return screenName;
-    }
-
-    public void setScreenName(String screenName) {
-        this.screenName = screenName;
-    }
-
-    public int getFriendsCount() {
-        return friendsCount;
-    }
-
-    public void setFriendsCount(int friendsCount) {
-        this.friendsCount = friendsCount;
-    }
-
-    public int getStatusesCount() {
-        return statusesCount;
-    }
-
-    public void setStatusesCount(int statusesCount) {
-        this.statusesCount = statusesCount;
-    }
 }
