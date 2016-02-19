@@ -5,6 +5,11 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,32 +17,65 @@ import java.util.List;
 public class Tweet extends Model {
 
 	@Column(name="id", unique = true)
-	private long id;
+	public long id;
 
 	@Column(name = "text")
-	private String text;
+	public String text;
 
 	@Column(name = "in_reply_to_screen_name")
-	private String inReplyToScreenName;
+	public String inReplyToScreenName;
 
 	@Column(name = "retweeted")
-	private boolean retweeted;
+	public boolean retweeted;
 
 	@Column(name = "favorited")
-	private boolean favorited;
+	public boolean favorited;
 
 	@Column(name = "retweet_count")
-	private int retweetCount;
+	public int retweetCount;
 
 	@Column(name = "favorite_count")
-	private int favoriteCount;
+	public int favoriteCount;
 
     @Column(name = "created_at", index = true)
-    private Date createdAt;
+    public Date createdAt;
+
+    @Column(name = "user")
+    public User user;
 
 	public Tweet() {
 		super();
 	}
+
+    public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
+        if (jsonObject == null)
+            return null;
+
+        Tweet tweet = new Tweet();
+
+        tweet.id = jsonObject.getLong("id");
+        tweet.text = jsonObject.getString("text");
+        tweet.inReplyToScreenName = jsonObject.getString("in_reply_to_screen_name");
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
+        tweet.favorited = jsonObject.getBoolean("favorited");
+        tweet.retweetCount = jsonObject.getInt("retweet_count");
+        tweet.favoriteCount = jsonObject.getInt("favorite_count");
+//        tweet.createdAt =
+        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        return tweet;
+    }
+
+    public static List<Tweet> fromJson(JSONArray jsonArray) throws JSONException {
+        if (jsonArray == null)
+            return null;
+
+        List<Tweet> tweets = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++){
+            tweets.add(fromJson((JSONObject) jsonArray.get(i)));
+        }
+
+        return tweets;
+    }
 
 
 	public static Tweet byId(long id) {
