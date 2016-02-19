@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.codepath.apps.twitter.utils.DateConverter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +48,7 @@ public class Tweet extends Model {
 		super();
 	}
 
-    public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
+    private static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 
@@ -60,9 +61,19 @@ public class Tweet extends Model {
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweetCount = jsonObject.getInt("retweet_count");
         tweet.favoriteCount = jsonObject.getInt("favorite_count");
-//        tweet.createdAt =
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.createdAt = DateConverter.getDateFromString(jsonObject.getString("created_at"));
+        tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
         return tweet;
+    }
+
+    public static Tweet findOrCreateFromJson(JSONObject jsonObject) throws JSONException {
+        long id = jsonObject.getLong("id");
+        Tweet existingTweet = new Select().from(Tweet.class).where("id = ?", id).executeSingle();
+        if (existingTweet != null) {
+            return existingTweet;
+        } else {
+            return fromJson(jsonObject);
+        }
     }
 
     public static List<Tweet> fromJson(JSONArray jsonArray) throws JSONException {
@@ -71,7 +82,7 @@ public class Tweet extends Model {
 
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
-            tweets.add(fromJson((JSONObject) jsonArray.get(i)));
+            tweets.add(findOrCreateFromJson((JSONObject) jsonArray.get(i)));
         }
 
         return tweets;

@@ -3,9 +3,12 @@ package com.codepath.apps.twitter.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 @Table(name = "user")
 public class User extends Model{
@@ -37,7 +40,7 @@ public class User extends Model{
         super();
     }
 
-    public static User fromJson(JSONObject jsonObject) throws JSONException {
+    private static User fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 
@@ -52,7 +55,23 @@ public class User extends Model{
         user.friendsCount = jsonObject.getInt("friends_count");
         user.statusesCount = jsonObject.getInt("statuses_count");
 
+        user.save();
+
         return user;
+    }
+
+    public static User findOrCreateFromJson(JSONObject jsonObject) throws JSONException {
+        long id = jsonObject.getLong("id");
+        User existingUser = new Select().from(User.class).where("id = ?", id).executeSingle();
+        if (existingUser != null) {
+            return existingUser;
+        } else {
+            return fromJson(jsonObject);
+        }
+    }
+
+    public List<Tweet> tweetsForUser(){
+        return getMany(Tweet.class, "User");
     }
 
 }
