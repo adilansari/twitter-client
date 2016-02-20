@@ -18,7 +18,7 @@ public class User extends Model{
     @Column(name = "profile_img_url")
     public String profileImgUrl;
 
-    @Column(name = "user_id", unique = true, index = true)
+    @Column(name = "user_id", unique = true, index = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     public long userId;
 
     @Column(name = "location")
@@ -40,7 +40,7 @@ public class User extends Model{
         super();
     }
 
-    private static User fromJson(JSONObject jsonObject) throws JSONException {
+    public static User fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 

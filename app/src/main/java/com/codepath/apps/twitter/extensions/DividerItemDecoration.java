@@ -1,4 +1,4 @@
-package com.codepath.apps.twitter.decorations;
+package com.codepath.apps.twitter.extensions;
 
 import android.content.Context;
 import android.content.res.TypedArray;

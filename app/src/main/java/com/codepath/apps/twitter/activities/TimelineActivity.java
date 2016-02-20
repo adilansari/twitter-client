@@ -13,7 +13,7 @@ import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
 import com.codepath.apps.twitter.adapters.TweetsAdapter;
-import com.codepath.apps.twitter.decorations.DividerItemDecoration;
+import com.codepath.apps.twitter.extensions.DividerItemDecoration;
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
