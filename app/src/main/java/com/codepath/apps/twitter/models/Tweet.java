@@ -4,7 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-import com.codepath.apps.twitter.utils.DateConverter;
+import com.codepath.apps.twitter.utils.DateConversionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,8 +17,8 @@ import java.util.List;
 @Table(name = "tweets")
 public class Tweet extends Model {
 
-	@Column(name="id", unique = true)
-	public long id;
+	@Column(name="tweet_id", unique = true, index = true)
+	public long tweetId;
 
 	@Column(name = "text")
 	public String text;
@@ -39,7 +39,7 @@ public class Tweet extends Model {
 	public int favoriteCount;
 
     @Column(name = "created_at", index = true)
-    public Date createdAt;
+    private Date createdAt;
 
     @Column(name = "user")
     public User user;
@@ -48,27 +48,34 @@ public class Tweet extends Model {
 		super();
 	}
 
+    public String getRelativeTimestamp() {
+        return DateConversionUtils.getRelativeTimeStamp(createdAt);
+    }
+
     private static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 
         Tweet tweet = new Tweet();
 
-        tweet.id = jsonObject.getLong("id");
+        tweet.tweetId = jsonObject.getLong("id");
         tweet.text = jsonObject.getString("text");
-        tweet.inReplyToScreenName = jsonObject.getString("in_reply_to_screen_name");
+
+        if (!jsonObject.isNull("in_reply_to_screen_name"))
+            tweet.inReplyToScreenName = jsonObject.getString("in_reply_to_screen_name");
+
         tweet.retweeted = jsonObject.getBoolean("retweeted");
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweetCount = jsonObject.getInt("retweet_count");
-        tweet.favoriteCount = jsonObject.getInt("favorite_count");
-        tweet.createdAt = DateConverter.getDateFromString(jsonObject.getString("created_at"));
+        tweet.favoriteCount = 0; //jsonObject.getInt("favorite_count");
+        tweet.createdAt = DateConversionUtils.getDateFromString(jsonObject.getString("created_at"));
         tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
         return tweet;
     }
 
     public static Tweet findOrCreateFromJson(JSONObject jsonObject) throws JSONException {
         long id = jsonObject.getLong("id");
-        Tweet existingTweet = new Select().from(Tweet.class).where("id = ?", id).executeSingle();
+        Tweet existingTweet = new Select().from(Tweet.class).where("tweet_id = ?", id).executeSingle();
         if (existingTweet != null) {
             return existingTweet;
         } else {
@@ -90,10 +97,10 @@ public class Tweet extends Model {
 
 
 	public static Tweet byId(long id) {
-		return new Select().from(Tweet.class).where("id = ?", id).executeSingle();
+		return new Select().from(Tweet.class).where("tweet_id = ?", id).executeSingle();
 	}
 
 	public static List<Tweet> recentItems() {
-		return new Select().from(Tweet.class).orderBy("id DESC").limit("25").execute();
+		return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
 	}
 }

@@ -4,7 +4,6 @@
 
     <TextView
         android:id="@+id/tvRetweetedByUser"
-        android:text="Matt retweeted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -42,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -52,6 +52,7 @@
                 android:layout_toRightOf="@+id/tvTweeterName"
                 android:layout_toEndOf="@id/tvTweeterName"
                 android:layout_alignBottom="@+id/tvTweeterName"
+                android:paddingLeft="3dp"
                 />
 
             <TextView
@@ -77,33 +78,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
+            android:weightSum="3"
             android:orientation="horizontal"
             >
 
             <ImageView
-                android:id="@+id/tvReplyToTweetButton"
-                android:src="@drawable/ic_reply"
-                android:layout_gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ivReplyToTweetIcon"
+                android:src="@drawable/ic_reply_action"
+                android:layout_weight="1"
+                android:layout_width="22dp"
+                android:layout_height="20dp"
                 />
 
-            <TextView
-                android:id="@+id/tvRetweetCount"
-                android:layout_gravity="left"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                >
+                <ImageView
+                    android:id="@+id/ivRetweetIcon"
+                    android:src="@drawable/ic_retweet_action"
+                    android:layout_width="22dp"
+                    android:layout_height="20dp" />
 
-            <TextView
-                android:id="@+id/tvFavoriteCount"
-                android:layout_gravity="left"
+                <TextView
+                    android:id="@+id/tvRetweetCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/ivRetweetIcon"
+                    android:paddingLeft="3dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                >
+                <ImageView
+                    android:id="@+id/ivFavoriteIcon"
+                    android:src="@drawable/ic_like_action"
+                    android:layout_width="22dp"
+                    android:layout_height="20dp" />
 
+                <TextView
+                    android:id="@+id/tvFavoriteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/ivFavoriteIcon"
+                    android:paddingLeft="3dp"
+                    />
+
+            </RelativeLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </RelativeLayout>
