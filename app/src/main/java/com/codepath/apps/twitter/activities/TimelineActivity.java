@@ -54,7 +54,7 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         rvTimeline.setLayoutManager(layoutManager);
-        rvTimeline.setHasFixedSize(true);
+        rvTimeline.setHasFixedSize(false);
         populateTimelineOffline();
     }
 
@@ -79,7 +79,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimelineOffline(){
-        String url = "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/0f5c04012cef77772168f5e85b2859588fa1a931/sample_tweets.json";
+        String url = "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/7a1682ae7da2a4fb5e26499c578d5a5e849492cd/timeline.json";
 
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(url, new JsonHttpResponseHandler() {
