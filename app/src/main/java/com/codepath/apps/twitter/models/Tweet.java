@@ -67,9 +67,11 @@ public class Tweet extends Model {
         tweet.retweeted = jsonObject.getBoolean("retweeted");
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweetCount = jsonObject.getInt("retweet_count");
-        tweet.favoriteCount = 0; //jsonObject.getInt("favorite_count");
+        tweet.favoriteCount = jsonObject.getInt("favorite_count");
         tweet.createdAt = DateConversionUtils.getDateFromString(jsonObject.getString("created_at"));
         tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
+
+        tweet.save();
         return tweet;
     }
 
