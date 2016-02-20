@@ -27,8 +27,7 @@ public class DateConversionUtils {
 
     public static String getRelativeTimeStamp(Date d) {
         long time = d.getTime();
-        String relativeTime  = (String) DateUtils.getRelativeTimeSpanString(time * 1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
-
+        String relativeTime  = (String) DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
         String[] tokens = relativeTime.split(" ");
         StringBuilder customRelativeTime = new StringBuilder(tokens[0]);
 
