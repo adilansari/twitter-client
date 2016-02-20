@@ -18,8 +18,8 @@ public class User extends Model{
     @Column(name = "profile_img_url")
     public String profileImgUrl;
 
-    @Column(name = "id", unique = true, index = true)
-    public long id;
+    @Column(name = "user_id", unique = true, index = true)
+    public long userId;
 
     @Column(name = "location")
     public String location;
@@ -48,8 +48,8 @@ public class User extends Model{
 
         user.screenName = jsonObject.getString("screen_name");
         user.name = jsonObject.getString("name");
-        user.id = jsonObject.getLong("id");
-        user.profileImgUrl = jsonObject.getString("profile_img_url");
+        user.userId = jsonObject.getLong("id");
+        user.profileImgUrl = jsonObject.getString("profile_image_url");
         user.location = jsonObject.getString("location");
         user.followersCount = jsonObject.getInt("followers_count");
         user.friendsCount = jsonObject.getInt("friends_count");
@@ -62,7 +62,7 @@ public class User extends Model{
 
     public static User findOrCreateFromJson(JSONObject jsonObject) throws JSONException {
         long id = jsonObject.getLong("id");
-        User existingUser = new Select().from(User.class).where("id = ?", id).executeSingle();
+        User existingUser = new Select().from(User.class).where("user_id = ?", id).executeSingle();
         if (existingUser != null) {
             return existingUser;
         } else {
