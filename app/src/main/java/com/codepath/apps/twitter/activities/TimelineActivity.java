@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
 import com.codepath.apps.twitter.adapters.TweetsAdapter;
 import com.codepath.apps.twitter.extensions.DividerItemDecoration;
+import com.codepath.apps.twitter.extensions.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -36,9 +38,11 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient mClient;
     private TweetsAdapter tweetsAdapter;
     private List<Tweet> listOfTweets;
+    private Tweet lastTweet;
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
     @Bind(R.id.rvTimeline) RecyclerView rvTimeline;
+    @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -55,7 +59,30 @@ public class TimelineActivity extends AppCompatActivity {
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         rvTimeline.setLayoutManager(layoutManager);
         rvTimeline.setHasFixedSize(false);
-        populateTimelineOffline();
+        rvTimeline.setOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                lastTweet = tweetsAdapter.getLastItem();
+
+                listOfTweets = Tweet.olderItems(lastTweet);
+                Log.d(TAG, "items fetched: " + listOfTweets.size());
+                if (listOfTweets.size() < 25) {
+                    populateTimelineOffline(false);
+                }
+                tweetsAdapter.addTweets(listOfTweets);
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                tweetsAdapter.clearData();
+                populateTimelineOffline(true);
+            }
+        });
+
+//        initial load
+        populateTimelineOffline(true);
     }
 
     @Override
@@ -78,16 +105,17 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    private void populateTimelineOffline(){
-        String url = "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/7a1682ae7da2a4fb5e26499c578d5a5e849492cd/timeline.json";
+    private void populateTimelineOffline(final boolean recent){
+        String url = "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/6d712863c017b21528bbe7c2b72150e14f7b2c78/timeline.json";
 
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 try {
-                    listOfTweets = Tweet.fromJson(response);
-                    tweetsAdapter.addTweets(listOfTweets);
+                    Tweet.insertFromJson(response);
+                    if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
+                    if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

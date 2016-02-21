@@ -17,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private static List<Tweet> tweetsList;
+    private List<Tweet> tweetsList;
     private Tweet tweet;
 
     public TweetsAdapter(List<Tweet> tweets){
@@ -30,6 +30,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tweetsList.addAll(tweets);
             notifyItemRangeInserted(curSize, this.getItemCount() - 1);
         }
+    }
+
+    public Tweet getLastItem(){
+        Tweet lastTweet = null;
+        if (tweetsList.size() > 0) lastTweet = tweetsList.get(tweetsList.size() - 1);
+        return lastTweet;
+    }
+
+    public void clearData(){
+        tweetsList.clear();
+        notifyDataSetChanged();
     }
 
     @Override
