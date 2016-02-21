@@ -72,6 +72,8 @@
             android:text="Here goes your tweet. Enjoy #tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
             />
 
         <LinearLayout
