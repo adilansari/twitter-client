@@ -67,7 +67,7 @@
 
         </RelativeLayout>
 
-        <com.adil.apps.twitter.extensions.LinkifiedTextView
+        <com.codepath.apps.twitter.extensions.LinkifiedTextView
             android:id="@+id/tvTweetText"
             android:text="Here goes your tweet. Enjoy #tag"
             android:layout_width="match_parent"
