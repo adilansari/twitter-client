@@ -69,22 +69,20 @@ public class Tweet extends Model {
         tweet.retweetCount = jsonObject.getInt("retweet_count");
         tweet.favoriteCount = jsonObject.getInt("favorite_count");
         tweet.createdAt = DateConversionUtils.getDateFromString(jsonObject.getString("created_at"));
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
 
         tweet.save();
         return tweet;
     }
 
-    public static List<Tweet> fromJson(JSONArray jsonArray) throws JSONException {
+    public static void insertFromJson(JSONArray jsonArray) throws JSONException {
         if (jsonArray == null)
-            return null;
+            return;
 
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
             tweets.add(fromJson((JSONObject) jsonArray.get(i)));
         }
-
-        return tweets;
     }
 
 
@@ -95,4 +93,10 @@ public class Tweet extends Model {
 	public static List<Tweet> recentItems() {
 		return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
 	}
+
+    public static List<Tweet> olderItems(Tweet t){
+        if (t == null)
+            return recentItems();
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).limit("25").execute();
+    }
 }
