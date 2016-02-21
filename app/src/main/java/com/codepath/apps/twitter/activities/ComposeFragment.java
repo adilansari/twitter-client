@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class ComposeFragment extends DialogFragment {
 
-    @Bind(R.id.btnComposeCancel)
+    @Bind(com.codepath.apps.twitter.R.id.btnComposeCancel)
     Button btnComposeCancel;
     @Bind(R.id.btnComposeSend)
     Button btnComposeSend;
