@@ -70,11 +70,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         tweet = tweetsList.get(position);
         SimpleTweetViewHolder simpleVH = (SimpleTweetViewHolder) holder;
-        if (tweet.inReplyToScreenName != null) {
-            simpleVH.tvRetweetedByUser.setText(tweet.inReplyToScreenName);
-        } else {
-            simpleVH.tvRetweetedByUser.setVisibility(View.GONE);
-        }
         Glide.with(simpleVH.ivTweeter.getContext()).load(tweet.user.profileImgUrl).into(simpleVH.ivTweeter);
         simpleVH.tvTweeterName.setText(tweet.user.name);
         simpleVH.tvScreenName.setText(TextConversionUtils.screenName(tweet.user.screenName));
