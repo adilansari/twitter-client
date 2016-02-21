@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    >
+
+    <RelativeLayout
+        android:id="@+id/detail_rlUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        >
+
+        <ImageView
+            android:id="@+id/detail_ivUserImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_launcher"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/detail_ivUserImage"
+            android:layout_alignTop="@+id/detail_ivUserImage"
+            android:layout_alignBottom="@+id/detail_ivUserImage"
+            android:weightSum="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/detail_tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User name"
+                android:textStyle="bold"
+                android:gravity="bottom"
+                />
+
+            <TextView
+                android:id="@+id/detail_tvScreenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="\@screenname"
+                android:gravity="top"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/detail_userInfoDivider"
+        android:layout_below="@+id/detail_rlUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:src="@drawable/divider"/>
+
+    <TextView
+        android:id="@+id/detail_tvTweetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_userInfoDivider"
+        android:text="Sample tweet will go here."
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        />
+
+    <ImageView
+        android:id="@+id/detail_tweetDivider"
+        android:layout_below="@+id/detail_tvTweetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:src="@drawable/divider"/>
+
+    <ViewStub
+        android:id="@+id/detail_stubMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_tweetDivider"
+        />
+
+    <LinearLayout
+        android:id="@+id/detail_llTimeReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_stubMedia"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/detail_tvTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="center_vertical"
+            android:text="2/21/16 12:31 AM"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+
+        <Button
+            android:id="@+id/detail_btnReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:text="REPLY"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_compose_tweet"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
