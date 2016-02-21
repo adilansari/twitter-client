@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
+import com.codepath.apps.twitter.extensions.LinkifiedTextView;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TextConversionUtils;
 
@@ -111,7 +112,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Bind(R.id.tvTweeterName) TextView tvTweeterName;
         @Bind(R.id.tvScreenName) TextView tvScreenName;
         @Bind(R.id.tvTweetTimeStamp) TextView tvTweetTimeStamp;
-        @Bind(R.id.tvTweetText) TextView tvTweetText;
+        @Bind(R.id.tvTweetText) LinkifiedTextView tvTweetText;
         @Bind(R.id.tvRetweetCount) TextView tvRetweetCount;
         @Bind(R.id.tvFavoriteCount) TextView tvFavoriteCount;
 
