@@ -48,5 +48,12 @@ public class TweetDetailActivity  extends AppCompatActivity{
         tvTimestamp.setText(tweet.getReadableDate());
         tvRetweetCount.setText(Integer.toString(tweet.retweetCount));
         tvFavoriteCount.setText(Integer.toString(tweet.favoriteCount));
+
+        if (tweet.hasMedia()){
+            mediaStub.setLayoutResource(R.layout.detail_tweet_image);
+            mediaStub.inflate();
+            ImageView ivTweetImage = (ImageView) findViewById(R.id.image_ivTweetImage);
+            Glide.with(ivTweetImage.getContext()).load(tweet.media.imgUrl).into(ivTweetImage);
+        }
     }
 }

@@ -46,10 +46,17 @@ public class Tweet extends Model {
     @Column(name = "user")
     public User user;
 
+    @Column(name = "media")
+    public Media media;
+
 	public Tweet() {}
 
     public String getRelativeTimestamp() {
         return DateConversionUtils.getRelativeTimeStamp(createdAt);
+    }
+
+    public boolean hasMedia(){
+        return (this.media != null);
     }
 
     public String getReadableDate(){
@@ -74,6 +81,7 @@ public class Tweet extends Model {
         tweet.favoriteCount = jsonObject.getInt("favorite_count");
         tweet.createdAt = DateConversionUtils.getDateFromString(jsonObject.getString("created_at"));
         tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
+        tweet.media = Media.fromJson(jsonObject);
 
         tweet.save();
         return tweet;

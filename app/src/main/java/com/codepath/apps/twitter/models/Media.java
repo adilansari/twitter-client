@@ -48,7 +48,8 @@ public class Media extends Model {
         media = new Media();
         media.type = TYPE.PHOTO;
         media.imgUrl = entity.getString("media_url");
-        
+        media.save();
+
         return media;
     }
 
@@ -58,7 +59,7 @@ public class Media extends Model {
         JSONObject entity= (JSONObject) entityObject.getJSONArray("media").get(0);
 
         String type = entity.getString("type");
-        if (type.equalsIgnoreCase("video") || type.equalsIgnoreCase("animated_gif") ){
+        if (!(type.equalsIgnoreCase("video") || type.equalsIgnoreCase("animated_gif"))){
             return null;
         }
 
@@ -76,6 +77,7 @@ public class Media extends Model {
         }
 
         if (media.vidUrl == null) return null;
+        media.save();
 
         return media;
     }
