@@ -23,7 +23,7 @@ import org.scribe.builder.api.TwitterApi;
  */
 public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
-	public static final String REST_URL = "http://api.twitter.com"; // Change this, base API URL
+	public static final String REST_URL = "https://api.twitter.com/1.1/"; // Change this, base API URL
 	public static final String REST_CONSUMER_KEY = "l1kmEnYV8iZPwsHtvwNJjIERO";       // Change this
 	public static final String REST_CONSUMER_SECRET = "cgcNYerOfgRwlrrIGoDl3jbQ6cd2OEoJIfVWeVUMxBEPDK6WsY"; // Change this
 	public static final String REST_CALLBACK_URL = "oauth://droidtweeter"; // Change this (here and in manifest)
