@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:src="@drawable/divider"/>
+        android:src="@drawable/horizontal_divider"/>
 
     <TextView
         android:id="@+id/detail_tvTweetText"
@@ -69,6 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/detail_userInfoDivider"
         android:text="Sample tweet will go here."
+        android:linksClickable="true"
+        android:autoLink="all"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         />
@@ -80,7 +82,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:src="@drawable/divider"/>
+        android:src="@drawable/horizontal_divider"/>
 
     <ViewStub
         android:id="@+id/detail_stubMedia"
@@ -90,10 +92,75 @@
         />
 
     <LinearLayout
+        android:id="@+id/detail_llTweetCounters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_stubMedia"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/detail_ivReplyToTweetIcon"
+                android:src="@drawable/ic_reply_action"
+                android:layout_width="22dp"
+                android:layout_height="20dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/detail_ivRetweetIcon"
+                android:src="@drawable/ic_retweet_action"
+                android:layout_width="22dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/detail_tvRetweetCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detail_ivRetweetIcon"
+                android:paddingLeft="3dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/detail_ivFavoriteIcon"
+                android:src="@drawable/ic_like_action"
+                android:layout_width="22dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/detail_tvFavoriteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detail_ivFavoriteIcon"
+                android:paddingLeft="3dp"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/detail_llTimeReply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_stubMedia"
+        android:layout_below="@id/detail_llTweetCounters"
         android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -115,9 +182,8 @@
 
         <Button
             android:id="@+id/detail_btnReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_width="64dp"
+            android:layout_height="36dp"
             android:layout_weight="1"
             android:text="REPLY"
             android:textColor="@android:color/white"

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:src="@drawable/divider" />
+        android:src="@drawable/horizontal_divider" />
 
     <ImageView
         android:id="@+id/image_ivTweetImage"
