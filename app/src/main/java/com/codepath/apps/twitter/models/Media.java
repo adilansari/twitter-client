@@ -48,7 +48,7 @@ public class Media extends Model {
         media = new Media();
         media.type = TYPE.PHOTO;
         media.imgUrl = entity.getString("media_url");
-
+        
         return media;
     }
 
