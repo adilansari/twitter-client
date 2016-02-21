@@ -53,7 +53,7 @@ public class Tweet extends Model {
     }
 
     public String getReadableDate(){
-        return DateConversionUtils.getReadableDate(createdAt);
+        return DateConversionUtils.getReadableDateTime(createdAt);
     }
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
