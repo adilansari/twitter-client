@@ -2,28 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bgrnd_compose_dialog"
-    android:minWidth="1000dp"
     android:minHeight="215dp"
-    >
+    android:minWidth="1000dp">
 
     <LinearLayout
         android:id="@+id/llComposeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_margin="4dp"
+        android:orientation="horizontal"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp"
         android:weightSum="4">
 
         <Button
             android:id="@+id/btnComposeCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_weight="1"
             android:background="@drawable/btn_compose_cancel"
+            android:clickable="true"
             android:text="CANCEL"
             android:textAlignment="center"
             android:textColor="@android:color/black" />
@@ -44,20 +43,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
             android:background="@drawable/btn_compose_tweet"
+            android:clickable="true"
             android:text="TWEET"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/etTweetText"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llComposeHeader"
-        android:background="@android:color/white"
-        android:minLines="6"
-        android:padding="4dp" />
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        app:counterTextAppearance="@style/counterText"
+        app:counterOverflowTextAppearance="@style/counterOverride"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        >
+
+        <EditText
+            android:id="@+id/etTweetText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:ems="10"
+            android:minLines="6"
+            />
+    </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>
