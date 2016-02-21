@@ -40,7 +40,7 @@ public class User extends Model{
 
     public User(){}
 
-    public static User fromJson(JSONObject jsonObject) throws JSONException {
+     private static User fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 
