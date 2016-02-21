@@ -75,27 +75,31 @@
         android:paddingBottom="4dp"
         />
 
-    <ImageView
-        android:id="@+id/detail_tweetDivider"
+    <ViewStub
+        android:id="@+id/detail_stubMedia"
+        android:inflatedId="@id/detail_stubMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:layout_below="@+id/detail_tvTweetText"
+        />
+
+    <ImageView
+        android:id="@+id/detail_stubDivider"
+        android:layout_below="@+id/detail_stubMedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:src="@drawable/horizontal_divider"/>
 
-    <ViewStub
-        android:id="@+id/detail_stubMedia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/detail_tweetDivider"
-        />
 
     <LinearLayout
         android:id="@+id/detail_llTweetCounters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/detail_stubMedia"
+        android:layout_below="@+id/detail_stubDivider"
         android:weightSum="3"
         android:orientation="horizontal"
         >
