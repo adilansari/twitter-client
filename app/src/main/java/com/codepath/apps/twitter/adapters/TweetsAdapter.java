@@ -59,7 +59,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         RecyclerView.ViewHolder viewHolder;
         View tweetView;
 
-        tweetView = li.inflate(R.layout.activity_timeline_tweet, parent, false);
+        tweetView = li.inflate(R.layout.activity_tweet_timeline, parent, false);
         viewHolder = new SimpleTweetViewHolder(tweetView);
 
         return viewHolder;
