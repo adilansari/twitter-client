@@ -47,10 +47,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.TimelineActivity" />
-        <activity
-            android:name="com.codepath.apps.restclienttemplate.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.TweetDetailActivity"/>
     </application>
 
 </manifest>
