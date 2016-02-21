@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
@@ -124,8 +125,11 @@ public class TimelineActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e(TAG, "Network request failed");
+                Toast.makeText(TimelineActivity.this, "No network detected", Toast.LENGTH_SHORT).show();
+                if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
+                if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
             }
         });
     }

@@ -111,7 +111,7 @@ public class ComposeFragment extends DialogFragment {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     throwable.printStackTrace();
-                    Log.e(TAG, "Failed to post Tweet" + errorResponse.toString());
+                    Log.e(TAG, "Failed to post Tweet");
                     Toast.makeText(getContext(), "Failed to post tweet", Toast.LENGTH_SHORT).show();
                 }
             });
