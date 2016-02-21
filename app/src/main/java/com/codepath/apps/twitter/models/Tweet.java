@@ -9,11 +9,13 @@ import com.codepath.apps.twitter.utils.DateConversionUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Parcel(analyze = {Tweet.class})
 @Table(name = "tweets")
 public class Tweet extends Model {
 
@@ -39,17 +41,19 @@ public class Tweet extends Model {
 	public int favoriteCount;
 
     @Column(name = "created_at", index = true)
-    private Date createdAt;
+    public Date createdAt;
 
     @Column(name = "user")
     public User user;
 
-	public Tweet() {
-		super();
-	}
+	public Tweet() {}
 
     public String getRelativeTimestamp() {
         return DateConversionUtils.getRelativeTimeStamp(createdAt);
+    }
+
+    public String getReadableDate(){
+        return DateConversionUtils.getReadableDate(createdAt);
     }
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
@@ -99,4 +103,5 @@ public class Tweet extends Model {
             return recentItems();
         return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).limit("25").execute();
     }
+
 }

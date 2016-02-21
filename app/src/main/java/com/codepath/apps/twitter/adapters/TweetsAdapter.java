@@ -1,9 +1,7 @@
 package com.codepath.apps.twitter.adapters;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +10,23 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
+import com.codepath.apps.twitter.activities.TweetDetailActivity;
 import com.codepath.apps.twitter.models.Tweet;
+import com.codepath.apps.twitter.utils.TextConversionUtils;
+
+import org.parceler.Parcels;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<Tweet> tweetsList;
-    private Tweet tweet;
+    private static List<Tweet> tweetsList;
+    private static  Tweet tweet;
 
     public TweetsAdapter(List<Tweet> tweets){
-        this.tweetsList = tweets;
+        tweetsList = tweets;
     }
 
     public void addTweets(List<Tweet> tweets){
@@ -38,7 +38,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void addTweetToTop(Tweet t){
-        this.tweetsList.add(0, t);
+        tweetsList.add(0, t);
         notifyItemInserted(0);
     }
 
@@ -76,21 +76,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         Glide.with(simpleVH.ivTweeter.getContext()).load(tweet.user.profileImgUrl).into(simpleVH.ivTweeter);
         simpleVH.tvTweeterName.setText(tweet.user.name);
-        simpleVH.tvScreenName.setText("@"+tweet.user.screenName);
+        simpleVH.tvScreenName.setText(TextConversionUtils.screenName(tweet.user.screenName));
         simpleVH.tvTweetTimeStamp.setText(tweet.getRelativeTimestamp());
-        simpleVH.tvTweetText.setText(linkify(tweet.text));
+        simpleVH.tvTweetText.setText(TextConversionUtils.linkify(tweet.text));
         simpleVH.tvRetweetCount.setText(Integer.toString(tweet.retweetCount));
         simpleVH.tvFavoriteCount.setText(Integer.toString(tweet.favoriteCount));
     }
 
-    private SpannableString linkify(String text){
-        SpannableString hashtagString = new SpannableString(text);
-        Matcher matcher = Pattern.compile("[#@]([A-Za-z0-9_-]+)").matcher(hashtagString);
-        while (matcher.find())
-            hashtagString.setSpan(new ForegroundColorSpan(Color.parseColor("teal")), matcher.start(), matcher.end(), 0);
-
-        return hashtagString;
-    }
 
     @Override
     public int getItemCount() {
@@ -106,7 +98,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v) {
-
+            tweet = tweetsList.get(getLayoutPosition());
+            Intent intent = new Intent(v.getContext(), TweetDetailActivity.class);
+            intent.putExtra("tweet", Parcels.wrap(tweet));
+            v.getContext().startActivity(intent);
         }
     }
 

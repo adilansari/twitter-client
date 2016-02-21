@@ -11,6 +11,7 @@ import java.util.Date;
 public class DateConversionUtils {
 
     private static SimpleDateFormat sf = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
+    private static SimpleDateFormat readableDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm a");
     private static final String TAG = DateConversionUtils.class.getSimpleName();
 
     public static Date getDateFromString(String date) {
@@ -41,5 +42,9 @@ public class DateConversionUtils {
             customRelativeTime.append("w");
         }
         return customRelativeTime.toString();
+    }
+
+    public static String getReadableDate(Date d){
+        return readableDateFormat.format(d);
     }
 }

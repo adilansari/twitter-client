@@ -7,9 +7,11 @@ import com.activeandroid.query.Select;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.List;
 
+@Parcel(analyze = {User.class})
 @Table(name = "user")
 public class User extends Model{
     @Column(name = "name")
@@ -36,9 +38,7 @@ public class User extends Model{
     @Column(name = "statuses_count")
     public int statusesCount;
 
-    public User(){
-        super();
-    }
+    public User(){}
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
