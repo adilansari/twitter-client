@@ -3,5 +3,6 @@
 
     <string name="app_name">Droid Tweeter</string>
     <string name="login_label">Log in</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bgrnd_compose_dialog"
+    android:minWidth="1000dp"
+    android:minHeight="215dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/llComposeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/btnComposeCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:background="@drawable/btn_compose_cancel"
+            android:text="CANCEL"
+            android:textAlignment="center"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="\@adilansari"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnComposeSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="@drawable/btn_compose_tweet"
+            android:text="TWEET"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etTweetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llComposeHeader"
+        android:background="@android:color/white"
+        android:minLines="6"
+        android:padding="4dp" />
+
+</RelativeLayout>

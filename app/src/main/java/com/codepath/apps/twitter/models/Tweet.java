@@ -52,7 +52,7 @@ public class Tweet extends Model {
         return DateConversionUtils.getRelativeTimeStamp(createdAt);
     }
 
-    private static Tweet fromJson(JSONObject jsonObject) throws JSONException {
+    public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 

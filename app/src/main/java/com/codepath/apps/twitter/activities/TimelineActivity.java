@@ -4,11 +4,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
@@ -36,7 +38,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TimelineActivity extends AppCompatActivity {
     private TwitterClient mClient;
-    private TweetsAdapter tweetsAdapter;
+    public static TweetsAdapter tweetsAdapter;
     private List<Tweet> listOfTweets;
     private Tweet lastTweet;
     private static final String TAG = TimelineActivity.class.getSimpleName();
@@ -92,7 +94,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     private void populateTimeline(){
-        mClient.getHomeTimeline(0, new JsonHttpResponseHandler(){
+        mClient.getHomeTimeline(0, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -126,5 +128,13 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "Network request failed");
             }
         });
+    }
+
+
+
+    public void showComposeDialog(View view){
+        FragmentManager fm = this.getSupportFragmentManager();
+        ComposeFragment composeFragment = ComposeFragment.newInstance();
+        composeFragment.show(fm, "tag");
     }
 }

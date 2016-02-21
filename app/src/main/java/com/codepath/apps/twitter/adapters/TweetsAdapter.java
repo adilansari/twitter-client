@@ -32,6 +32,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    public void addTweetToTop(Tweet t){
+        this.tweetsList.add(0, t);
+        notifyItemInserted(0);
+    }
+
     public Tweet getLastItem(){
         Tweet lastTweet = null;
         if (tweetsList.size() > 0) lastTweet = tweetsList.get(tweetsList.size() - 1);
