@@ -5,4 +5,5 @@
     <item name="darkGrey" type="color">#9e9e9e</item>
     <item name="orange" type="color">#FFFFBB33</item>
     <item name="red" type="color">#FFFF4444</item>
+    <item name="purple" type="color">#aa5353cc</item>
 </resources>
