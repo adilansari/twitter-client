@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 
 public class TextConversionUtils {
 
-    public static String screenName(String screenName){
+    public static String screenName(String screenName) {
         StringBuilder builder = new StringBuilder("@");
         builder.append(screenName);
         return builder.toString();
     }
 
-    public static SpannableString linkify(String text){
+    public static SpannableString linkify(String text) {
         SpannableString spannableString = new SpannableString(text);
         Matcher matcher = Pattern.compile("[#@]([A-Za-z0-9_-]+)").matcher(spannableString);
         while (matcher.find())

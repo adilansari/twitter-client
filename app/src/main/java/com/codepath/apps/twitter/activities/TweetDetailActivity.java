@@ -82,6 +82,5 @@ public class TweetDetailActivity extends AppCompatActivity {
             ImageView ivTweetImage = (ImageView) findViewById(R.id.image_ivTweetImage);
             Glide.with(ivTweetImage.getContext()).load(tweet.media.imgUrl).into(ivTweetImage);
         }
-
     }
 }

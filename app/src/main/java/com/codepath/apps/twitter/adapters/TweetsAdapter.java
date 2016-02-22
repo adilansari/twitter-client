@@ -79,7 +79,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         simpleVH.tvFavoriteCount.setText(Integer.toString(tweet.favoriteCount));
     }
 
-
     @Override
     public int getItemCount() {
         return tweetsList.size();

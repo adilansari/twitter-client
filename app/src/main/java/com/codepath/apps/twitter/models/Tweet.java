@@ -19,23 +19,23 @@ import java.util.List;
 @Table(name = "tweets")
 public class Tweet extends Model {
 
-	@Column(name="tweet_id", unique = true, index = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-	public long tweetId;
+    @Column(name = "tweet_id", unique = true, index = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    public long tweetId;
 
-	@Column(name = "text")
-	public String text;
+    @Column(name = "text")
+    public String text;
 
-	@Column(name = "retweeted")
-	public boolean retweeted;
+    @Column(name = "retweeted")
+    public boolean retweeted;
 
-	@Column(name = "favorited")
-	public boolean favorited;
+    @Column(name = "favorited")
+    public boolean favorited;
 
-	@Column(name = "retweet_count")
-	public int retweetCount;
+    @Column(name = "retweet_count")
+    public int retweetCount;
 
-	@Column(name = "favorite_count")
-	public int favoriteCount;
+    @Column(name = "favorite_count")
+    public int favoriteCount;
 
     @Column(name = "created_at", index = true)
     public Date createdAt;
@@ -46,25 +46,26 @@ public class Tweet extends Model {
     @Column(name = "media")
     public Media media;
 
-	public Tweet() {}
+    public Tweet() {
+    }
 
     public String getRelativeTimestamp() {
         return DateConversionUtils.getRelativeTimeStamp(createdAt);
     }
 
-    public boolean hasMedia(){
+    public boolean hasMedia() {
         return (this.media != null);
     }
 
-    public boolean isPhotoTweet(){
+    public boolean isPhotoTweet() {
         return (hasMedia() && (this.media.type == MediaType.PHOTO));
     }
 
-    public boolean isVideoTweet(){
+    public boolean isVideoTweet() {
         return (hasMedia() && (this.media.type == MediaType.VIDEO));
     }
 
-    public String getReadableDate(){
+    public String getReadableDate() {
         return DateConversionUtils.getReadableDateTime(createdAt);
     }
 
@@ -93,21 +94,20 @@ public class Tweet extends Model {
             return;
 
         List<Tweet> tweets = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             tweets.add(fromJson((JSONObject) jsonArray.get(i)));
         }
     }
 
+    public static Tweet byId(long id) {
+        return new Select().from(Tweet.class).where("tweet_id = ?", id).executeSingle();
+    }
 
-	public static Tweet byId(long id) {
-		return new Select().from(Tweet.class).where("tweet_id = ?", id).executeSingle();
-	}
+    public static List<Tweet> recentItems() {
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
+    }
 
-	public static List<Tweet> recentItems() {
-		return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
-	}
-
-    public static List<Tweet> olderItems(Tweet t){
+    public static List<Tweet> olderItems(Tweet t) {
         if (t == null)
             return recentItems();
         return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).limit("25").execute();
