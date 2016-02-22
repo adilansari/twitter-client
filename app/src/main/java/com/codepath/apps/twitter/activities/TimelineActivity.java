@@ -1,14 +1,14 @@
 package com.codepath.apps.twitter.activities;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -46,14 +46,18 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Bind(R.id.rvTimeline) RecyclerView rvTimeline;
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
+    Toolbar toolbar;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         mClient = TwitterApplication.getTwitterClient();
         ButterKnife.bind(this);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.toolbar);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         tweetsAdapter = new TweetsAdapter(new ArrayList<Tweet>());
@@ -116,6 +120,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 try {
+                    Log.d("network", "Sending nw request");
                     Tweet.insertFromJson(response);
                     if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
                     if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
