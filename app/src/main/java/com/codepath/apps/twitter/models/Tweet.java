@@ -59,6 +59,14 @@ public class Tweet extends Model {
         return (this.media != null);
     }
 
+    public boolean isPhotoTweet(){
+        return (hasMedia() && (this.media.type == MediaType.PHOTO));
+    }
+
+    public boolean isVideoTweet(){
+        return (hasMedia() && (this.media.type == MediaType.VIDEO));
+    }
+
     public String getReadableDate(){
         return DateConversionUtils.getReadableDateTime(createdAt);
     }

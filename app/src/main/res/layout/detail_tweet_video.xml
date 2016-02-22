@@ -4,19 +4,19 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_tweetDivider"
+        android:id="@+id/video_tweetDivider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:src="@drawable/horizontal_divider" />
 
-    <ImageView
-        android:id="@+id/image_ivTweetImage"
+    <VideoView
+        android:id="@+id/video_vvTweetVideo"
         android:layout_centerInParent="true"
         android:layout_width="320dp"
         android:layout_height="320dp"
-        android:layout_below="@id/image_tweetDivider"
+        android:layout_below="@id/video_tweetDivider"
         android:paddingTop="4dp"
-        android:scaleType="fitXY" />
+        />
 
 </RelativeLayout>

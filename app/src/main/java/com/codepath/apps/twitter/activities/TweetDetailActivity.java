@@ -1,10 +1,14 @@
 package com.codepath.apps.twitter.activities;
 
+import android.media.MediaPlayer;
+import android.widget.MediaController;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
@@ -16,7 +20,7 @@ import org.parceler.Parcels;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TweetDetailActivity  extends AppCompatActivity{
+public class TweetDetailActivity extends AppCompatActivity {
 
     @Bind(R.id.detail_ivUserImage) ImageView ivUserImage;
     @Bind(R.id.detail_tvUserName) TextView tvUserName;
@@ -29,6 +33,8 @@ public class TweetDetailActivity  extends AppCompatActivity{
     @Bind(R.id.detail_tvFavoriteCount) TextView tvFavoriteCount;
 
     private Tweet tweet;
+    private MediaController mediaController;
+    private Uri videoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,7 @@ public class TweetDetailActivity  extends AppCompatActivity{
         populateView(tweet);
     }
 
-    private void populateView(Tweet tweet){
+    protected void populateView(Tweet tweet) {
         Glide.with(ivUserImage.getContext()).load(tweet.user.profileImgUrl).into(ivUserImage);
         tvUserName.setText(tweet.user.name);
         tvScrenName.setText(TextConversionUtils.screenName(tweet.user.screenName));
@@ -49,11 +55,29 @@ public class TweetDetailActivity  extends AppCompatActivity{
         tvRetweetCount.setText(Integer.toString(tweet.retweetCount));
         tvFavoriteCount.setText(Integer.toString(tweet.favoriteCount));
 
-        if (tweet.hasMedia()){
+        if (tweet.isVideoTweet()) {
+            mediaStub.setLayoutResource(R.layout.detail_tweet_video);
+            mediaStub.inflate();
+
+            final VideoView vv = (VideoView) findViewById(R.id.video_vvTweetVideo);
+            mediaController = new MediaController(this);
+            videoUri = Uri.parse(tweet.media.vidUrl);
+            vv.setMediaController(mediaController);
+            vv.setVideoURI(videoUri);
+
+            vv.requestFocus();
+            vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    vv.start();
+                }
+            });
+        } else if (tweet.isPhotoTweet()) {
             mediaStub.setLayoutResource(R.layout.detail_tweet_image);
             mediaStub.inflate();
             ImageView ivTweetImage = (ImageView) findViewById(R.id.image_ivTweetImage);
             Glide.with(ivTweetImage.getContext()).load(tweet.media.imgUrl).into(ivTweetImage);
         }
+
     }
 }
