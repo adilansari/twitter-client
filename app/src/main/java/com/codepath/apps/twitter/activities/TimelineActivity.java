@@ -72,7 +72,8 @@ public class TimelineActivity extends AppCompatActivity {
                 listOfTweets = Tweet.olderItems(lastTweet);
                 Log.d(TAG, "items fetched: " + listOfTweets.size());
                 if (listOfTweets.size() < 25) {
-                    populateTimelineOffline(false);
+//                    populateTimelineOffline(false);
+                    populateTimeline(lastTweet.tweetId);
                 }
                 tweetsAdapter.addTweets(listOfTweets);
             }
@@ -82,24 +83,36 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 tweetsAdapter.clearData();
-                populateTimelineOffline(true);
+//                populateTimelineOffline(true);
+                populateTimeline(0);
             }
         });
 
 //        initial load
-        populateTimelineOffline(true);
+//        populateTimelineOffline(true);
+        populateTimeline(0);
     }
 
-    private void populateTimeline(){
-        mClient.getHomeTimeline(0, new JsonHttpResponseHandler() {
+    private void populateTimeline(final long max_id){
+        mClient.getHomeTimeline(max_id, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d(TAG, "Sending nw request");
+                try {
+                    Tweet.insertFromJson(response);
+                    if (max_id == 0) tweetsAdapter.addTweets(Tweet.recentItems());
+                    if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.e(TAG, "Network request failed");
+                Toast.makeText(TimelineActivity.this, "No network detected", Toast.LENGTH_SHORT).show();
+                if (max_id == 0) tweetsAdapter.addTweets(Tweet.recentItems());
+                if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
             }
         });
     }
@@ -112,7 +125,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 try {
-                    Log.d("network", "Sending nw request");
+                    Log.d(TAG, "Sending nw request");
                     Tweet.insertFromJson(response);
                     if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
                     if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
