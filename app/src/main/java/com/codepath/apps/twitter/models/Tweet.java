@@ -25,9 +25,6 @@ public class Tweet extends Model {
 	@Column(name = "text")
 	public String text;
 
-	@Column(name = "in_reply_to_screen_name")
-	public String inReplyToScreenName;
-
 	@Column(name = "retweeted")
 	public boolean retweeted;
 
@@ -79,10 +76,6 @@ public class Tweet extends Model {
 
         tweet.tweetId = jsonObject.getLong("id");
         tweet.text = jsonObject.getString("text");
-
-        if (!jsonObject.isNull("in_reply_to_screen_name"))
-            tweet.inReplyToScreenName = jsonObject.getString("in_reply_to_screen_name");
-
         tweet.retweeted = jsonObject.getBoolean("retweeted");
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweetCount = jsonObject.getInt("retweet_count");

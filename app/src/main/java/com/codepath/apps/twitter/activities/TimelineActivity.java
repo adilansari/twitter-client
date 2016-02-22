@@ -35,8 +35,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-;
-
 public class TimelineActivity extends AppCompatActivity {
     private TwitterClient mClient;
     public static TweetsAdapter tweetsAdapter;
@@ -92,12 +90,6 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimelineOffline(true);
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-
     private void populateTimeline(){
         mClient.getHomeTimeline(0, new JsonHttpResponseHandler() {
             @Override
@@ -140,6 +132,10 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     public void showComposeDialog(View view){
         FragmentManager fm = this.getSupportFragmentManager();

@@ -2,28 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvRetweetedByUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
     <ImageView
         android:id="@+id/ivTweeter"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvRetweetedByUser"
+        android:layout_alignParentStart="true"
         />
 
     <LinearLayout
         android:id="@+id/llTweetMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvRetweetedByUser"
-        android:layout_toRightOf="@+id/ivTweeter"
+        android:layout_alignTop="@id/ivTweeter"
         android:layout_toEndOf="@+id/ivTweeter"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:orientation="vertical"
         android:paddingLeft="6dp"
@@ -42,18 +34,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textStyle="bold"
+                style="@style/usernameText"
                 />
 
             <TextView
                 android:id="@+id/tvScreenName"
-                android:text="\@screen_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tvTweeterName"
                 android:layout_toEndOf="@id/tvTweeterName"
-                android:layout_alignBottom="@+id/tvTweeterName"
+                android:layout_alignTop="@+id/tvTweeterName"
                 android:paddingLeft="3dp"
+                style="@style/screennameText"
                 />
 
             <TextView
@@ -69,11 +61,9 @@
 
         <com.codepath.apps.twitter.extensions.LinkifiedTextView
             android:id="@+id/tvTweetText"
-            android:text="Here goes your tweet. Enjoy #tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoLink="all"
-            android:linksClickable="true"
+            style="@style/tweetText"
             />
 
         <LinearLayout

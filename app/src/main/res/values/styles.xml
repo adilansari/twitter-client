@@ -7,6 +7,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="colorAccent">@color/twitterBlue</item>
         <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/textGrey</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,15 +19,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="body">
-        <item name="android:background">@android:color/white</item>
+    <style name="font">
     </style>
 
-    <style name="counterText">
+    <style name="usernameText" parent="@style/font">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:text">User name</item>
+    </style>
+
+    <style name="screennameText" parent="@style/font">
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">\@screenname</item>
+    </style>
+
+    <style name="tweetText" parent="font">
+        <item name="android:text">"Here goes your tweet. Enjoy #tag"</item>
+        <item name="android:autoLink">all</item>
+        <item name="android:linksClickable">true</item>
+    </style>
+
+    <style name="counterText" parent="font">
         <item name="android:textColor">@color/purple</item>
     </style>
 
-    <style name="counterOverride">
+    <style name="counterOverride" parent="font">
         <item name="android:textColor">@color/red</item>
     </style>
 

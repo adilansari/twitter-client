@@ -102,7 +102,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class SimpleTweetViewHolder extends TweetViewHolder {
-        @Bind(R.id.tvRetweetedByUser) TextView tvRetweetedByUser;
         @Bind(R.id.ivTweeter) ImageView ivTweeter;
         @Bind(R.id.tvTweeterName) TextView tvTweeterName;
         @Bind(R.id.tvScreenName) TextView tvScreenName;
