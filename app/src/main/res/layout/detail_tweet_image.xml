@@ -13,8 +13,8 @@
     <ImageView
         android:id="@+id/image_ivTweetImage"
         android:layout_centerInParent="true"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="3200dp"
+        android:layout_height="320dp"
         android:layout_below="@id/image_tweetDivider"
         android:paddingTop="4dp"
         android:scaleType="fitXY" />
