@@ -3,22 +3,23 @@ package com.codepath.apps.twitter.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
+import com.codepath.apps.twitter.adapters.HomeFragmentPagerAdapter;
 import com.codepath.apps.twitter.adapters.TweetsAdapter;
-import com.codepath.apps.twitter.extensions.DividerItemDecoration;
-import com.codepath.apps.twitter.extensions.EndlessRecyclerViewScrollListener;
+import com.codepath.apps.twitter.fragments.ComposeFragment;
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -28,7 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -56,45 +56,49 @@ public class TimelineActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.toolbar);
 //        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabsTimeline);
+        tabs.setViewPager(viewPager);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        tweetsAdapter = new TweetsAdapter(new ArrayList<Tweet>());
-        rvTimeline.setAdapter(tweetsAdapter);
-        rvTimeline.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        rvTimeline.setLayoutManager(layoutManager);
-        rvTimeline.setHasFixedSize(false);
-        rvTimeline.setOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                lastTweet = tweetsAdapter.getLastItem();
-
-                listOfTweets = Tweet.olderItems(lastTweet);
-                Log.d(TAG, "items fetched: " + listOfTweets.size());
-                if (listOfTweets.size() < 25) {
-//                    populateTimelineOffline(false);
-                    populateTimeline(lastTweet.tweetId);
-                }
-                tweetsAdapter.addTweets(listOfTweets);
-            }
-        });
-
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                tweetsAdapter.clearData();
-//                populateTimelineOffline(true);
-                populateTimeline(0);
-            }
-        });
-
-//        initial load
-//        populateTimelineOffline(true);
-        populateTimeline(0);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        tweetsAdapter = new TweetsAdapter(new ArrayList<Tweet>());
+//        rvTimeline.setAdapter(tweetsAdapter);
+//        rvTimeline.addItemDecoration(
+//                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+//        rvTimeline.setLayoutManager(layoutManager);
+//        rvTimeline.setHasFixedSize(false);
+//        rvTimeline.setOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+//            @Override
+//            public void onLoadMore(int page, int totalItemsCount) {
+//                lastTweet = tweetsAdapter.getLastItem();
+//
+//                listOfTweets = Tweet.olderItems(lastTweet);
+//                Log.d(TAG, "items fetched: " + listOfTweets.size());
+//                if (listOfTweets.size() < 25) {
+////                    populateTimelineOffline(false);
+//                    populateTimeline(lastTweet.tweetId);
+//                }
+//                tweetsAdapter.addTweets(listOfTweets);
+//            }
+//        });
+//
+//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                tweetsAdapter.clearData();
+////                populateTimelineOffline(true);
+//                populateTimeline(0);
+//            }
+//        });
+//
+////        initial load
+////        populateTimelineOffline(true);
+//        populateTimeline(0);
     }
 
     private void populateTimeline(final long max_id){
-        mClient.getHomeTimeline(max_id, new JsonHttpResponseHandler() {
+        mClient.getHomeTimeline(null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d(TAG, "Sending nw request");

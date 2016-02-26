@@ -1,4 +1,4 @@
-package com.codepath.apps.twitter.activities;
+package com.codepath.apps.twitter.fragments;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
+import com.codepath.apps.twitter.activities.TimelineActivity;
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
