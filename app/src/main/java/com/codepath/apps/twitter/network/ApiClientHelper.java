@@ -27,7 +27,7 @@ public class ApiClientHelper {
             try {
                 Log.d(TAG, "Sending nw request");
                 Tweet.insertFromJson(response);
-//                    if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
+//                    if (recent) tweetsAdapter.addTweets(Tweet.recentTweets());
 //                    if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -38,7 +38,7 @@ public class ApiClientHelper {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Log.e(TAG, "Network request failed");
             Toast.makeText(mContext, "No network detected", Toast.LENGTH_SHORT).show();
-//                if (recent) tweetsAdapter.addTweets(Tweet.recentItems());
+//                if (recent) tweetsAdapter.addTweets(Tweet.recentTweets());
 //                if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
         }
     };

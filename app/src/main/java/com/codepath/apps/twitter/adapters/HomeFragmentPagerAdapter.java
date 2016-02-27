@@ -10,7 +10,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter{
 
     final int PAGE_COUNT = 2;
 
-    private String tabTitles[] = new String[]{"Home", "Mentions"};
+    private String tabTitles[] = new String[]{"Home", "Mentions", "Notifications"};
 
     public HomeFragmentPagerAdapter(FragmentManager fm){
         super(fm);
@@ -18,7 +18,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return HomeFragment.newInstance(position+1);
+        return HomeFragment.newInstance(position);
     }
 
     @Override

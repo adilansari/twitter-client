@@ -37,6 +37,11 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(apiUrl, params, handler);
 	}
 
+	public void getMentionsTimeline(RequestParams params, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		getClient().get(apiUrl, params, handler);
+	}
+
 	public void postTweet(String body, AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();

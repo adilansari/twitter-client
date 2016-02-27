@@ -89,27 +89,29 @@ public class Tweet extends Model {
         return tweet;
     }
 
-    public static void insertFromJson(JSONArray jsonArray) throws JSONException {
+    public static List<Tweet> fromJson(JSONArray jsonArray) throws JSONException {
         if (jsonArray == null)
-            return;
+            return null;
 
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             tweets.add(fromJson((JSONObject) jsonArray.get(i)));
         }
+
+        return tweets;
     }
 
     public static Tweet byId(long id) {
         return new Select().from(Tweet.class).where("tweet_id = ?", id).executeSingle();
     }
 
-    public static List<Tweet> recentItems() {
+    public static List<Tweet> recentTweets() {
         return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
     }
 
-    public static List<Tweet> olderItems(Tweet t) {
+    public static List<Tweet> olderTweets(Tweet t) {
         if (t == null)
-            return recentItems();
+            return recentTweets();
         return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).limit("25").execute();
     }
 

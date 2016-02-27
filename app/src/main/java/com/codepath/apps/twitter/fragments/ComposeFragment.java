@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
-import com.codepath.apps.twitter.activities.TimelineActivity;
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -101,7 +100,7 @@ public class ComposeFragment extends DialogFragment {
                     Log.d(TAG, "Posted tweet!");
                     try {
                         Tweet t = Tweet.fromJson(response);
-                        TimelineActivity.tweetsAdapter.addTweetToTop(t);
+//                        HomeFragment.tweetsAdapter.addTweetToTop(t);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
