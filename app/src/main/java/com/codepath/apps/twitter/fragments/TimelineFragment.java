@@ -4,7 +4,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.models.Tweet;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -12,8 +11,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 public class TimelineFragment extends HomeFragment {
 
@@ -56,9 +53,9 @@ public class TimelineFragment extends HomeFragment {
 
     @Override
     public void fetchOlder(Tweet lastTweet) {
-        List<Tweet> tweets = Tweet.olderTweets(lastTweet);
-        tweetsAdapter.addTweets(tweets);
-        if (tweets.size() < 25) {
+        listOfTweets = Tweet.olderTweets(lastTweet);
+        tweetsAdapter.addTweets(listOfTweets);
+        if (listOfTweets.size() < 25) {
             RequestParams params = getParams(50);
             params.put("max_id", String.valueOf(lastTweet.tweetId));
             fetchTweets(params, false);
@@ -66,37 +63,7 @@ public class TimelineFragment extends HomeFragment {
     }
 
     @Override
-    public void fetchTweetsOffline(RequestParams params, final boolean updateView) {
-        String url = "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/6d712863c017b21528bbe7c2b72150e14f7b2c78/timeline.json";
-
-        AsyncHttpClient httpClient = new AsyncHttpClient();
-        httpClient.get(url, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.d(TAG, "Sending nw request");
-                try {
-                    listOfTweets = Tweet.fromJson(response);
-                    if (updateView) {
-                        tweetsAdapter.clearData();
-                        tweetsAdapter.addTweets(listOfTweets);
-                    }
-                    if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable
-                    throwable, JSONObject errorResponse) {
-                Log.e(TAG, "Network request failed");
-                Toast.makeText(getContext(), "No network detected", Toast.LENGTH_SHORT).show();
-                if (updateView) {
-                    tweetsAdapter.clearData();
-                    tweetsAdapter.addTweets(Tweet.recentTweets());
-                }
-                if (swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
-            }
-        });
+    public String getOfflineUrl() {
+        return "https://gist.githubusercontent.com/adilansari/d7b3884559ab93a97074/raw/6d712863c017b21528bbe7c2b72150e14f7b2c78/timeline.json";
     }
 }

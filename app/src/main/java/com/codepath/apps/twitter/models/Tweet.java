@@ -46,6 +46,9 @@ public class Tweet extends Model {
     @Column(name = "media")
     public Media media;
 
+    @Column(name= "is_mention", index = true)
+    public boolean isMention;
+
     public Tweet() {
     }
 
@@ -69,6 +72,19 @@ public class Tweet extends Model {
         return DateConversionUtils.getReadableDateTime(createdAt);
     }
 
+    private static boolean isMention(JSONObject entity) throws JSONException {
+        if(!entity.has("user_mentions")) return false;
+        JSONArray mentions = entity.getJSONArray("user_mentions");
+
+        for(int i = 0; i< mentions.length(); i++){
+            JSONObject mention = (JSONObject) mentions.get(i);
+            if (mention.get("screen_name").equals("adilansari")){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
@@ -84,6 +100,7 @@ public class Tweet extends Model {
         tweet.createdAt = DateConversionUtils.getDateFromString(jsonObject.getString("created_at"));
         tweet.user = User.findOrCreateFromJson(jsonObject.getJSONObject("user"));
         tweet.media = Media.fromJson(jsonObject);
+        tweet.isMention = isMention(jsonObject.getJSONObject("entities"));
 
         tweet.save();
         return tweet;
@@ -106,13 +123,23 @@ public class Tweet extends Model {
     }
 
     public static List<Tweet> recentTweets() {
-        return new Select().from(Tweet.class).orderBy("tweet_id DESC").limit("25").execute();
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("is_mention = ?", false).limit("25").execute();
     }
 
     public static List<Tweet> olderTweets(Tweet t) {
         if (t == null)
             return recentTweets();
-        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).limit("25").execute();
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).where("is_mention = ?", false).limit("25").execute();
+    }
+
+    public static List<Tweet> recentMentions(){
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("is_mention = ?", true).limit("25").execute();
+    }
+
+    public static List<Tweet> olderMentions(Tweet t){
+        if (t == null)
+            return recentMentions();
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).where("is_mention = ?", true).limit("25").execute();
     }
 
 }
