@@ -65,7 +65,6 @@ public abstract class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mClient = TwitterApplication.getTwitterClient();
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         tweetsAdapter = new TweetsAdapter(new ArrayList<Tweet>());
         rvTimeline.setAdapter(tweetsAdapter);

@@ -23,8 +23,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private static List<Tweet> tweetsList;
-    private static  Tweet tweet;
+    private  List<Tweet> tweetsList;
+    private Tweet tweet;
 
     public TweetsAdapter(List<Tweet> tweets){
         tweetsList = tweets;
@@ -84,7 +84,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return tweetsList.size();
     }
 
-    public static abstract class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public abstract class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TweetViewHolder(View itemView) {
             super(itemView);
@@ -100,7 +100,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public static class SimpleTweetViewHolder extends TweetViewHolder {
+    public class SimpleTweetViewHolder extends TweetViewHolder {
         @Bind(R.id.ivTweeter) ImageView ivTweeter;
         @Bind(R.id.tvTweeterName) TextView tvTweeterName;
         @Bind(R.id.tvScreenName) TextView tvScreenName;
