@@ -28,8 +28,6 @@ public class TimelineActivity extends AppCompatActivity {
         viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabsTimeline);
         tabs.setViewPager(viewPager);
-
-        FragmentManager fm = getSupportFragmentManager();
     }
 
 
