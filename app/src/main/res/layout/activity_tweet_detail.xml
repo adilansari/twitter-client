@@ -140,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/detail_ivRetweetIcon"
-                        android:paddingLeft="3dp" />
+                        style="@style/SoftLeftPadding" />
 
                 </RelativeLayout>
 
@@ -160,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/detail_ivFavoriteIcon"
-                        android:paddingLeft="3dp" />
+                        style="@style/SoftLeftPadding" />
 
                 </RelativeLayout>
             </LinearLayout>

@@ -1,149 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin">
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/profile_ivUserImage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher" />
-
-    <LinearLayout
-        android:id="@+id/profile_llUserInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/profile_ivUserImage"
-        android:layout_alignTop="@+id/profile_ivUserImage"
-        android:layout_toRightOf="@+id/profile_ivUserImage"
-        android:orientation="vertical"
-        android:weightSum="2">
-
-        <TextView
-            android:id="@+id/profile_tvUserName"
-            style="@style/usernameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom" />
-
-        <TextView
-            android:id="@+id/profile_tvScreenName"
-            style="@style/screennameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="top" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/profile_userInfoDivider"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_llUserInfo"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        android:src="@drawable/horizontal_divider" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/profile_llDescription"
-        android:layout_below="@id/profile_userInfoDivider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/profile_tvUserDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/profile_tvLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/profile_ivUserImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher" />
 
         <LinearLayout
-            android:id="@+id/profile_rlNumbers"
-            android:orientation="horizontal"
+            android:id="@+id/profile_llUserInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_ivUserImage"
+            android:layout_alignTop="@+id/profile_ivUserImage"
+            android:layout_toEndOf="@+id/profile_ivUserImage"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/profile_tvUserName"
+                style="@style/usernameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom" />
+
+            <TextView
+                android:id="@+id/profile_tvScreenName"
+                style="@style/screennameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/profile_userInfoDivider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
+            android:layout_below="@+id/profile_llUserInfo"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/horizontal_divider" />
 
-            <RelativeLayout
-                android:id="@+id/profile_rl_following"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/profile_llDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_userInfoDivider"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/profile_tvFollowingCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/profile_tvUserDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/profile_tvFollowingCount"
-                    android:text="FOLLOWING"/>
+            <TextView
+                android:id="@+id/profile_tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/profile_rlNumbers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <RelativeLayout
-                android:layout_weight="1"
-                android:id="@+id/profile_rl_followers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/profile_tvFollowersCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_toEndOf="@id/profile_tvFollowersCount"
+                <RelativeLayout
+                    android:id="@+id/profile_rl_following"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FOLLOWERS"/>
+                    android:layout_weight="1">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/profile_tvFollowingCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-            <RelativeLayout
-                android:layout_weight="1"
-                android:id="@+id/profile_rl_statuses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/profile_tvFollowingCount"
+                        android:text="FOLLOWING"
+                        style="@style/SoftLeftPadding"/>
 
-                <TextView
-                    android:id="@+id/profile_tvTweetsCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_toEndOf="@id/profile_tvTweetsCount"
+                <RelativeLayout
+                    android:id="@+id/profile_rl_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TWEETS"/>
+                    android:layout_weight="1">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/profile_tvFollowersCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/profile_tvFollowersCount"
+                        android:text="FOLLOWERS"
+                        style="@style/SoftLeftPadding"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/profile_rl_statuses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/profile_tvTweetsCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/profile_tvTweetsCount"
+                        android:text="TWEETS"
+                        style="@style/SoftLeftPadding"/>
+
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <include
-        layout="@layout/fragment_home"
-        android:layout_below="@id/profile_llDescription"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        <include
+            layout="@layout/fragment_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_llDescription" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

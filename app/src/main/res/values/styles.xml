@@ -49,4 +49,8 @@
         <item name="android:textColor">@color/red</item>
     </style>
 
+    <style name="SoftLeftPadding">
+        <item name="android:paddingLeft">3dp</item>
+    </style>
+
 </resources>

@@ -52,6 +52,9 @@
         <activity
             android:name="com.codepath.apps.twitter.activities.TweetDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.codepath.apps.twitter.activities.UserProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

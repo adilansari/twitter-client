@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
+import com.codepath.apps.twitter.activities.UserProfileActivity;
 import com.codepath.apps.twitter.extensions.LinkifiedTextView;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TextConversionUtils;
@@ -67,10 +68,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         tweet = tweetsList.get(position);
         SimpleTweetViewHolder simpleVH = (SimpleTweetViewHolder) holder;
+
         Glide.with(simpleVH.ivTweeter.getContext()).load(tweet.user.profileImgUrl).into(simpleVH.ivTweeter);
+        simpleVH.ivTweeter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tweet = tweetsList.get(position);
+                Intent intent = new Intent(v.getContext(), UserProfileActivity.class);
+                intent.putExtra("user", Parcels.wrap(tweet.user));
+                v.getContext().startActivity(intent);
+            }
+        });
+
         simpleVH.tvTweeterName.setText(tweet.user.name);
         simpleVH.tvScreenName.setText(TextConversionUtils.screenName(tweet.user.screenName));
         simpleVH.tvTweetTimeStamp.setText(tweet.getRelativeTimestamp());
