@@ -142,4 +142,14 @@ public class Tweet extends Model {
         return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", t.tweetId).where("is_mention = ?", true).limit("25").execute();
     }
 
+    public static List<Tweet> recentUserTweets(User user){
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("user = ?", user).limit("25").execute();
+    }
+
+    public static List<Tweet> olderUserTweets(User user, Tweet tweet){
+        if (tweet == null)
+            return recentUserTweets(user);
+        return new Select().from(Tweet.class).orderBy("tweet_id DESC").where("tweet_id < ?", tweet.tweetId).where("user= ?", user).limit("25").execute();
+    }
+
 }

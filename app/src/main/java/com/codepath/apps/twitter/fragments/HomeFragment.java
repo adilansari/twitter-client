@@ -36,6 +36,11 @@ public abstract class HomeFragment extends Fragment {
     @Bind(R.id.rvTimeline) RecyclerView rvTimeline;
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
 
+
+    public abstract void fetchRecent();
+    public abstract void fetchOlder(Tweet lastTweet);
+    public abstract String getOfflineUrl();
+
     public static HomeFragment newInstance(int position){
         switch(position){
             case 1:
@@ -50,10 +55,15 @@ public abstract class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public void initialize() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        initialize();
 
         mClient = TwitterApplication.getTwitterClient();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -81,10 +91,6 @@ public abstract class HomeFragment extends Fragment {
         fetchRecent();
         return view;
     }
-
-    public abstract void fetchRecent();
-    public abstract void fetchOlder(Tweet lastTweet);
-    public abstract String getOfflineUrl();
 
     public RequestParams getParams(int count){
         params = new RequestParams();

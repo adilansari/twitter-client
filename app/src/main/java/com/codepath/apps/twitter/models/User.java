@@ -82,4 +82,12 @@ public class User extends Model {
     public static User byId(long id) {
         return new Select().from(User.class).where("user_id = ?", id).executeSingle();
     }
+
+    public List<Tweet> recentTweetsForUser(){
+        return Tweet.recentUserTweets(this);
+    }
+
+    public List<Tweet> olderTweetsForUser(Tweet tweet){
+        return Tweet.olderUserTweets(this, tweet);
+    }
 }

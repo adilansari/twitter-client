@@ -148,8 +148,8 @@
             </LinearLayout>
         </LinearLayout>
 
-        <include
-            layout="@layout/fragment_home"
+        <FrameLayout
+            android:id="@+id/profile_tweetsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/profile_llDescription" />

@@ -1,6 +1,7 @@
 package com.codepath.apps.twitter.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
+import com.codepath.apps.twitter.fragments.UserTimelineFragment;
 import com.codepath.apps.twitter.models.User;
 import com.codepath.apps.twitter.utils.TextConversionUtils;
 
@@ -42,6 +44,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         populateView(user);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.profile_tweetsContainer, UserTimelineFragment.newInstance(user.userId));
+        ft.commit();
     }
 
     private void populateView(User user) {
