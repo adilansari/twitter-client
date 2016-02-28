@@ -38,10 +38,13 @@ public class User extends Model {
     @Column(name = "statuses_count")
     public int statusesCount;
 
+    @Column(name = "description")
+    public String description;
+
     public User() {
     }
 
-    private static User fromJson(JSONObject jsonObject) throws JSONException {
+    public static User fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
 
@@ -55,6 +58,7 @@ public class User extends Model {
         user.followersCount = jsonObject.getInt("followers_count");
         user.friendsCount = jsonObject.getInt("friends_count");
         user.statusesCount = jsonObject.getInt("statuses_count");
+        user.description = jsonObject.getString("description");
 
         user.save();
 
@@ -75,4 +79,7 @@ public class User extends Model {
         return getMany(Tweet.class, "User");
     }
 
+    public static User byId(long id) {
+        return new Select().from(User.class).where("user_id = ?", id).executeSingle();
+    }
 }
