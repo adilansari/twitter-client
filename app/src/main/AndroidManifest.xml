@@ -46,8 +46,12 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name="com.codepath.apps.twitter.activities.TimelineActivity" />
-        <activity android:name="com.codepath.apps.twitter.activities.TweetDetailActivity"/>
+        <activity
+            android:name="com.codepath.apps.twitter.activities.TimelineActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.codepath.apps.twitter.activities.TweetDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

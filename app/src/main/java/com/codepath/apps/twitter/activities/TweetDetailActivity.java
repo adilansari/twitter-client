@@ -3,8 +3,8 @@ package com.codepath.apps.twitter.activities;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -36,6 +36,7 @@ public class TweetDetailActivity extends AppCompatActivity {
     private Tweet tweet;
     private MediaController mediaController;
     private Uri videoUri;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,8 @@ public class TweetDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tweet_detail);
         ButterKnife.bind(this);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         populateView(tweet);

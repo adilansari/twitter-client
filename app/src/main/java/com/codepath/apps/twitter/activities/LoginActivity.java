@@ -3,6 +3,7 @@ package com.codepath.apps.twitter.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -20,8 +21,8 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-//        Toolbar customActionBar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(customActionBar);
+        Toolbar customActionBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(customActionBar);
 	}
 
 
