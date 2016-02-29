@@ -13,7 +13,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -70,10 +72,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <ImageView
+                android:id="@+id/profile_descriptionDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:src="@drawable/horizontal_divider" />
+
             <TextView
                 android:id="@+id/profile_tvLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/profile_locationDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:src="@drawable/horizontal_divider" />
 
             <LinearLayout
                 android:id="@+id/profile_rlNumbers"
@@ -91,14 +109,15 @@
                     <TextView
                         android:id="@+id/profile_tvFollowingCount"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        style="@style/Counters"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/profile_tvFollowingCount"
                         android:text="FOLLOWING"
-                        style="@style/SoftLeftPadding"/>
+                        style="@style/CounterLabels"/>
 
                 </RelativeLayout>
 
@@ -111,14 +130,16 @@
                     <TextView
                         android:id="@+id/profile_tvFollowersCount"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        style="@style/Counters"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/profile_tvFollowersCount"
                         android:text="FOLLOWERS"
-                        style="@style/SoftLeftPadding"/>
+                        android:layout_alignBottom="@id/profile_tvFollowersCount"
+                        style="@style/CounterLabels"/>
 
                 </RelativeLayout>
 
@@ -131,18 +152,26 @@
                     <TextView
                         android:id="@+id/profile_tvTweetsCount"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        style="@style/Counters"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/profile_tvTweetsCount"
                         android:text="TWEETS"
-                        style="@style/SoftLeftPadding"/>
+                        style="@style/CounterLabels"/>
 
                 </RelativeLayout>
             </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/horizontal_divider" />
         </LinearLayout>
+
 
         <FrameLayout
             android:id="@+id/profile_tweetsContainer"
