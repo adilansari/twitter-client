@@ -142,12 +142,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onClick(View v) {
                     tweet = tweetsList.get(getLayoutPosition());
                     mClient = TwitterApplication.getTwitterClient();
-                    String tweetId = String.valueOf(tweet.tweetId);
+                    final String tweetId = String.valueOf(tweet.tweetId);
                     Log.d("action", tweetId);
                     mClient.postRetweet(tweetId, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             ivRetweetIcon.setImageResource(R.drawable.ic_retweet_action_active);
+                            tweet.retweeted = true;
                         }
 
                         @Override
@@ -168,6 +169,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             ivFavoriteIcon.setImageResource(R.drawable.ic_like_action_active);
+                            tweet.favorited = true;
                         }
 
                         @Override
