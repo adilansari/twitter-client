@@ -23,7 +23,7 @@ public class Cache {
     }
 
     public void setCurrentUserId(long userId){
-        edit.putLong(CURRENT_USER_KEY, 0);
+        edit.putLong(CURRENT_USER_KEY, userId);
         edit.apply();
     }
 
