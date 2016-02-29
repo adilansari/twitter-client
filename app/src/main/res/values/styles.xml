@@ -1,7 +1,6 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    </style>
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
@@ -21,8 +20,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="font">
-    </style>
+    <style name="font"></style>
 
     <style name="usernameText" parent="@style/font">
         <item name="android:textStyle">bold</item>
@@ -53,4 +51,17 @@
         <item name="android:paddingLeft">3dp</item>
     </style>
 
+    <style name="UserImage">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="riv_corner_radius">4dip</item>
+        <item name="riv_border_width">1dip</item>
+        <item name="riv_border_color">@color/composeBackground</item>
+        <item name="riv_mutate_background">true</item>
+        <item name="riv_oval">false</item>
+    </style>
 </resources>

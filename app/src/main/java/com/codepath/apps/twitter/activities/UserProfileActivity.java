@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +11,7 @@ import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.fragments.UserTimelineFragment;
 import com.codepath.apps.twitter.models.User;
 import com.codepath.apps.twitter.utils.TextConversionUtils;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.parceler.Parcels;
 
@@ -22,7 +22,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private static final String TAG = UserProfileActivity.class.getSimpleName();
 
-    @Bind(R.id.profile_ivUserImage) ImageView ivUserImage;
+    @Bind(R.id.profile_ivUserImage) RoundedImageView ivUserImage;
     @Bind(R.id.profile_tvUserName) TextView tvUserName;
     @Bind(R.id.profile_tvScreenName) TextView tvScreenName;
     @Bind(R.id.profile_tvUserDescription) TextView tvUserDescription;
@@ -56,8 +56,8 @@ public class UserProfileActivity extends AppCompatActivity {
         tvScreenName.setText(TextConversionUtils.screenName(user.screenName));
         tvUserDescription.setText(user.description);
         tvLocation.setText(user.location);
-        tvFollowingCount.setText(Integer.toString(user.friendsCount));
-        tvFollowersCount.setText(Integer.toString(user.followersCount));
-        tvTweetsCount.setText(Integer.toString(user.statusesCount));
+        tvFollowingCount.setText(TextConversionUtils.getReadableNumber(user.friendsCount));
+        tvFollowersCount.setText(TextConversionUtils.getReadableNumber(user.followersCount));
+        tvTweetsCount.setText(TextConversionUtils.getReadableNumber(user.statusesCount));
     }
 }

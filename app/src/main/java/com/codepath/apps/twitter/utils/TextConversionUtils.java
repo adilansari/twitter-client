@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,5 +24,9 @@ public class TextConversionUtils {
             spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("teal")), matcher.start(), matcher.end(), 0);
 
         return spannableString;
+    }
+
+    public static String getReadableNumber(int num){
+        return NumberFormat.getNumberInstance(Locale.US).format(num);
     }
 }

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +14,7 @@ import com.codepath.apps.twitter.activities.UserProfileActivity;
 import com.codepath.apps.twitter.extensions.LinkifiedTextView;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TextConversionUtils;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.parceler.Parcels;
 
@@ -113,7 +113,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class SimpleTweetViewHolder extends TweetViewHolder {
-        @Bind(R.id.ivTweeter) ImageView ivTweeter;
+        @Bind(R.id.ivTweeter) RoundedImageView ivTweeter;
         @Bind(R.id.tvTweeterName) TextView tvTweeterName;
         @Bind(R.id.tvScreenName) TextView tvScreenName;
         @Bind(R.id.tvTweetTimeStamp) TextView tvTweetTimeStamp;
